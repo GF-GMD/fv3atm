@@ -871,7 +871,7 @@ subroutine atmos_model_exchange_phase_2 (Atmos, rc)
 !     ! -- import fields from chemistry
 !      call update_atmos_chemistry('import', rc=localrc)
 !      if (ESMF_LogFoundError(rcToCheck=localrc, msg=ESMF_LOGERR_PASSTHRU, line=__LINE__, file=__FILE__, rcToReturn=rc)) return
-    endif
+!    endif
 
  end subroutine atmos_model_exchange_phase_2
 ! </SUBROUTINE>
