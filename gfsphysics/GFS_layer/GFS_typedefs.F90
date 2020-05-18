@@ -526,6 +526,7 @@ module GFS_typedefs
     real (kind=kind_phys), pointer :: qci_conv(:,:)   => null()  !< convective cloud condesate after rainout
     !-- chemistry coupling
     real (kind=kind_phys), pointer :: buffer_ebu (:,:,:,:)   => null()  !<
+    real (kind=kind_phys), pointer :: faersw_cpl(:,:,:,:)    => null()  !<
 
 
     contains
@@ -604,6 +605,7 @@ module GFS_typedefs
     logical              :: cplflx          !< default no cplflx collection
     logical              :: cplwav          !< default no cplwav collection
     logical              :: cplchm          !< default no cplchm collection
+    logical              :: cplchm_rad_opt  !< default no cplchm radiation feedback
 
 !--- integrated dynamics through earth's atmosphere
     logical              :: lsidea         
@@ -2664,14 +2666,17 @@ module GFS_typedefs
       allocate (Coupling%dqdti     (IM,Model%levs))
       !--- accumulated convective rainfall
       allocate (Coupling%rainc_cpl (IM))
-      !-- chemistry coupling
+      !-- chemistry coupling buffer
       allocate (Coupling%buffer_ebu  (IM,Model%levs+1,1,7))
+      !-- chemistry coupling feedback to radiation
+      allocate (Coupling%faersw_cpl  (IM,Model%levr+LTP,14,3))
 
       Coupling%rainc_cpl = clear_val
       Coupling%ushfsfci  = clear_val
       Coupling%dkt       = clear_val
       Coupling%dqdti     = clear_val
       Coupling%buffer_ebu   = clear_val
+      Coupling%faersw_cpl   = clear_va
     endif
 
     !--- stochastic physics option
@@ -2815,6 +2820,7 @@ module GFS_typedefs
     logical              :: cplwav         = .false.         !< default no cplwav collection
     logical              :: cplchm         = .true.          !< default no cplchm collection
 !   logical              :: cplchm         = .false.         !< default no cplchm collection
+    logical              :: cplchm_rad_opt = .false.         !< default no cplchm radiation feedback
 
 !--- integrated dynamics through earth's atmosphere
     logical              :: lsidea         = .false.
@@ -3456,6 +3462,7 @@ module GFS_typedefs
     Model%cplflx           = cplflx
     Model%cplwav           = cplwav
     Model%cplchm           = cplchm
+    Model%cplchm_rad_opt   = cplchm_rad_opt
 
 !--- integrated dynamics through earth's atmosphere
     Model%lsidea           = lsidea

@@ -1897,6 +1897,13 @@
   dimensions = (horizontal_dimension,vertical_dimension_plus_one,1,7)
   type = real
   kind = kind_phys
+[faersw_cpl]
+  standard_name = gsdchem_aerosol_optical_properties_for_shortwave_bands_01_14
+  long_name = gsdchem aerosol optical properties for shortwave bands 01-14
+  units = various
+  dimensions = (horizontal_dimension,adjusted_vertical_layer_dimension_for_radiation,14,3)
+  type = real
+  kind = kind_phys
 [nwfa2d]
   standard_name = tendency_of_water_friendly_aerosols_at_surface
   long_name = instantaneous water-friendly sfc aerosol source
@@ -2139,6 +2146,12 @@
 [cplchm]
   standard_name = flag_for_chemistry_coupling
   long_name = flag controlling cplchm collection (default off)
+  units = flag
+  dimensions = ()
+  type = logical
+[cplchm_rad_opt]
+  standard_name = flag_for_chemistry_coupling_radiation_feedback
+  long_name = flag controlling cplchm radiation feedback (default off)
   units = flag
   dimensions = ()
   type = logical
