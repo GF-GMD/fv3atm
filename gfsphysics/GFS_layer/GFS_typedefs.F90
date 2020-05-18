@@ -2676,7 +2676,7 @@ module GFS_typedefs
       Coupling%dkt       = clear_val
       Coupling%dqdti     = clear_val
       Coupling%buffer_ebu   = clear_val
-      Coupling%faersw_cpl   = clear_va
+      Coupling%faersw_cpl   = clear_val
     endif
 
     !--- stochastic physics option
