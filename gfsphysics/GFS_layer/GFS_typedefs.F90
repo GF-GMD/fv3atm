@@ -605,7 +605,9 @@ module GFS_typedefs
     logical              :: cplflx          !< default no cplflx collection
     logical              :: cplwav          !< default no cplwav collection
     logical              :: cplchm          !< default no cplchm collection
+#ifdef CCPP
     logical              :: cplchm_rad_opt  !< default no cplchm radiation feedback
+#endif
 
 !--- integrated dynamics through earth's atmosphere
     logical              :: lsidea         
@@ -1082,6 +1084,45 @@ module GFS_typedefs
     integer              :: nkbfshoc        !< the index of upward kinematic buoyancy flux from SHOC in phy_f3d
     integer              :: nahdshoc        !< the index of diffusivity for heat from from SHOC in phy_f3d
     integer              :: nscfshoc        !< the index of subgrid-scale cloud fraction from from SHOC in phy_f3d
+#endif
+
+#ifdef CCPP
+!-- chem nml variables for FV3/CCPP-Chem
+    integer :: aer_bc_opt
+    integer :: aer_ic_opt
+    integer :: aer_ra_feedback  = 0
+    integer :: aerchem_onoff
+    integer :: bio_emiss_opt
+    integer :: biomass_burn_opt
+    integer :: chem_conv_tr
+    integer :: chem_in_opt
+    integer :: chem_opt
+    integer :: chemdt
+    integer :: cldchem_onoff
+    integer :: dmsemis_opt
+    integer :: dust_opt
+    real(kind=kind_phys) :: dust_alpha
+    real(kind=kind_phys) :: dust_gamma
+    integer :: dust_calcdrag
+    real(kind=kind_phys) :: dust_uthres(13)
+    integer :: emiss_inpt_opt
+    integer :: emiss_opt
+    integer :: gas_bc_opt
+    integer :: gas_ic_opt
+    integer :: gaschem_onoff
+    integer :: kemit
+    integer :: phot_opt
+    integer :: photdt
+    integer :: plumerisefire_frq
+    integer :: plumerise_flag
+    integer :: seas_opt
+    integer :: seas_emis_scheme
+    real(kind=kind_phys) :: seas_emis_scale(5)
+    integer :: vertmix_onoff
+    integer :: gfdlmp_onoff
+    integer :: archive_step
+    integer :: aer_ra_frq
+    integer :: wetdep_ls_opt 
 #endif
 
 !--- debug flag
@@ -3187,6 +3228,45 @@ module GFS_typedefs
     real(kind=kind_phys) :: pertalb  = -999.
     real(kind=kind_phys) :: pertvegf = -999.
 
+#ifdef CCPP
+!-- chem nml variables for FV3/CCPP-Chem
+    integer :: aer_bc_opt = 1
+    integer :: aer_ic_opt = 1
+    integer :: aer_ra_feedback  = 0
+    integer :: aerchem_onoff = 1
+    integer :: bio_emiss_opt = 0
+    integer :: biomass_burn_opt = 1
+    integer :: chem_conv_tr = 0
+    integer :: chem_in_opt = 0
+    integer :: chem_opt =300
+    integer :: chemdt = 3
+    integer :: cldchem_onoff = 0
+    integer :: dmsemis_opt = 1
+    integer :: dust_opt = 5
+    real(kind=kind_phys) :: dust_alpha = 2.0
+    real(kind=kind_phys) :: dust_gamma = 1.8
+    integer :: dust_calcdrag = 1
+    real(kind=kind_phys), dimension(13) :: dust_uthres=(/0.065,0.15,0.27,0.30,0.35,0.38,0.35,0.30,0.30,0.45,0.50,0.45,9.999/)
+    integer :: emiss_inpt_opt = 1
+    integer :: emiss_opt = 5 
+    integer :: gas_bc_opt = 1
+    integer :: gas_ic_opt = 1
+    integer :: gaschem_onoff = 1
+    integer :: kemit = 1
+    integer :: phot_opt = 1
+    integer :: photdt = 60
+    integer :: plumerisefire_frq = 60
+    integer :: plumerise_flag = 2
+    integer :: seas_opt = 2
+    integer :: seas_emis_scheme = -1
+    real(kind=kind_phys), dimension(5) :: seas_emis_scale=(/1.0,1.0,1.0,1.0,1.0/)
+    integer :: vertmix_onoff = 1
+    integer :: gfdlmp_onoff = 1
+    integer :: archive_step = -1
+    integer :: aer_ra_frq = 60
+    integer :: wetdep_ls_opt  = 1
+#endif
+
 !--- aerosol scavenging factors
     character(len=20) :: fscav_aero(20) = 'default'
 
@@ -3286,7 +3366,20 @@ module GFS_typedefs
                                max_lon, max_lat, min_lon, min_lat, rhcmax,                  &
                                phys_version,                                                &
                           !--- aerosol scavenging factors ('name:value' string array)
-                               fscav_aero
+                               fscav_aero,                                                  &
+                          !--- chem namelist
+#ifdef CCPP
+                               cplchm_rad_opt,                                              &
+                               aer_bc_opt, aer_ic_opt, aer_ra_feedback, aerchem_onoff,      &
+                               bio_emiss_opt, biomass_burn_opt, chem_conv_tr,               &
+                               chem_in_opt, chem_opt, chemdt, cldchem_onoff,                &
+                               dmsemis_opt, dust_opt, dust_alpha, dust_gamma,               &
+                               dust_calcdrag, dust_uthres, emiss_inpt_opt, emiss_opt,       &
+                               gas_bc_opt, gas_ic_opt, gaschem_onoff, kemit, phot_opt,      &
+                               photdt, plumerisefire_frq, plumerise_flag, seas_opt,         &
+                               seas_emis_scheme, seas_emis_scale, vertmix_onoff,            &
+                               gfdlmp_onoff, archive_step, aer_ra_frq, wetdep_ls_opt
+#endif
 
 !--- other parameters 
     integer :: nctp    =  0                !< number of cloud types in CS scheme
@@ -3318,6 +3411,10 @@ module GFS_typedefs
     endif
     rewind(nlunit)
     read (nlunit, nml=gfs_physics_nml)
+!#ifdef CCPP
+!    rewind(nlunit)
+!    read (nlunit, nml=chem_nml)
+!#endif
     close (nlunit)
 #ifdef CCPP
     ! Set length (number of lines) in namelist for internal reads
@@ -3950,6 +4047,45 @@ module GFS_typedefs
         endif
       enddo
     endif
+
+
+#ifdef CCPP
+    Model%aer_bc_opt        = aer_bc_opt
+    Model%aer_ic_opt        = aer_ic_opt
+    Model%aer_ra_feedback   = aer_ra_feedback
+    Model%aerchem_onoff     = aerchem_onoff
+    Model%bio_emiss_opt     = bio_emiss_opt
+    Model%biomass_burn_opt  = biomass_burn_opt
+    Model%chem_conv_tr      = chem_conv_tr
+    Model%chem_in_opt       = chem_in_opt
+    Model%chem_opt          = chem_opt
+    Model%chemdt            = chemdt
+    Model%cldchem_onoff     = cldchem_onoff
+    Model%dmsemis_opt       = dmsemis_opt
+    Model%dust_opt          = dust_opt
+    Model%dust_alpha        = dust_alpha
+    Model%dust_gamma        = dust_gamma
+    Model%dust_calcdrag     = dust_calcdrag
+    Model%dust_uthres       = dust_uthres
+    Model%emiss_inpt_opt    = emiss_inpt_opt
+    Model%emiss_opt         = emiss_opt
+    Model%gas_bc_opt        = gas_bc_opt
+    Model%gas_ic_opt        = gas_ic_opt
+    Model%gaschem_onoff     = gaschem_onoff
+    Model%kemit             = kemit
+    Model%phot_opt          = phot_opt
+    Model%photdt            = photdt
+    Model%plumerisefire_frq = plumerisefire_frq
+    Model%plumerise_flag    = plumerise_flag
+    Model%seas_opt          = seas_opt
+    Model%seas_emis_scheme  = seas_emis_scheme
+    Model%seas_emis_scale   = seas_emis_scale
+    Model%vertmix_onoff     = vertmix_onoff
+    Model%gfdlmp_onoff      = gfdlmp_onoff
+    Model%archive_step      = archive_step
+    Model%aer_ra_frq        = aer_ra_frq
+    Model%wetdep_ls_opt     = wetdep_ls_opt
+#endif
 
 #ifdef CCPP
     ! To ensure that these values match what's in the physics,
@@ -4616,6 +4752,7 @@ module GFS_typedefs
       print *, ' cplflx            : ', Model%cplflx
       print *, ' cplwav            : ', Model%cplwav
       print *, ' cplchm            : ', Model%cplchm
+      print *, ' cplchm_rad_opt    : ', Model%cplchm_rad_opt
       print *, ' '
       print *, 'integrated dynamics through earth atmosphere'
       print *, ' lsidea            : ', Model%lsidea
@@ -4913,6 +5050,43 @@ module GFS_typedefs
       print *, ' ntss5             : ', Model%ntss5
       print *, ' ntpp10            : ', Model%ntpp10
       print *, ' fscav             : ', Model%fscav
+#ifdef CCPP
+      print *, ' aer_bc_opt        : ', Model%aer_bc_opt 
+      print *, ' aer_ic_opt        : ', Model%aer_ic_opt 
+      print *, ' aer_ra_feeback    : ', Model%aer_ra_feedback  
+      print *, ' aerchem_onoff     : ', Model%aerchem_onoff 
+      print *, ' bio_emiss_opt     : ', Model%bio_emiss_opt
+      print *, ' biomass_burn_opt  : ', Model%biomass_burn_opt 
+      print *, ' chem_conv_tr      : ', Model%chem_conv_tr
+      print *, ' chem_in_opt       : ', Model%chem_in_opt 
+      print *, ' chem_opt          : ', Model%chem_opt 
+      print *, ' chemdt            : ', Model%chemdt
+      print *, ' cldchem_onoff     : ', Model%cldchem_onoff
+      print *, ' dmsemis_opt       : ', Model%dmsemis_opt   
+      print *, ' dust_opt          : ', Model%dust_opt       
+      print *, ' dust_alpha        : ', Model%dust_alpha
+      print *, ' dust_gamma        : ', Model%dust_gamma
+      print *, ' dust_calcdrag     : ', Model%dust_calcdrag 
+      print *, ' dust_uthres       : ', Model%dust_uthres
+      print *, ' emiss_inpt_opt    : ', Model%emiss_inpt_opt
+      print *, ' emiss_opt         : ', Model%emiss_opt 
+      print *, ' gas_bc_opt        : ', Model%gas_bc_opt 
+      print *, ' gas_ic_opt        : ', Model%gas_ic_opt 
+      print *, ' gaschem_onoff     : ', Model%gaschem_onoff
+      print *, ' kemit             : ', Model%kemit           
+      print *, ' phot_opt          : ', Model%phot_opt 
+      print *, ' photdt            : ', Model%photdt 
+      print *, ' plumerisefire_frq : ', Model%plumerisefire_frq 
+      print *, ' plumerise_flag    : ', Model%plumerise_flag  
+      print *, ' seas_opt          : ', Model%seas_opt     
+      print *, ' seas_emis_scheme  : ', Model%seas_emis_scheme
+      print *, ' seas_emis_scale   : ', Model%seas_emis_scale
+      print *, ' vertmix_onoff     : ', Model%vertmix_onoff
+      print *, ' gfdlmp_onoff      : ', Model%gfdlmp_onoff
+      print *, ' archive_step      : ', Model%archive_step
+      print *, ' aer_ra_frq        : ', Model%aer_ra_frq      
+      print *, ' wetdep_ls_opt     : ', Model%wetdep_ls_opt 
+#endif
       print *, ' '
       print *, 'derived totals for phy_f*d'
       print *, ' ntot2d            : ', Model%ntot2d

@@ -3868,6 +3868,220 @@
   units = index
   dimensions = ()
   type = integer
+[aer_bc_opt]
+  standard_name = gsd_chem_aer_bc_opt
+  long_name = gsd chem aer bc option not used
+  units = index
+  dimensions = ()
+  type = integer
+[aer_ic_opt]
+  standard_name = gsd_chem_aer_ic_opt
+  long_name = gsd chem aer ic option not used
+  units = index
+  dimensions = ()
+  type = integer
+[aer_ra_feedback]
+  standard_name = gsd_chem_aer_ra_feedback
+  long_name = gsd chem aer radiation feedback option
+  units = index
+  dimensions = ()
+  type = integer
+[aerchem_onoff]
+  standard_name = gsd_chem_aerchem_onoff
+  long_name = gsd chem aerchem onoff option not used
+  units = index
+  dimensions = ()
+  type = integer
+[bio_emiss_opt]
+  standard_name = gsd_chem_bio_emiss_opt
+  long_name = gsd chem bio emiss option not used
+  units = index
+  dimensions = ()
+  type = integer
+[biomass_burn_opt]
+  standard_name = gsd_chem_biomass_burn_opt
+  long_name = gsd chem biomass burning option
+  units = index
+  dimensions = ()
+  type = integer
+[chem_conv_tr]
+  standard_name = gsd_chem_conv_tr
+  long_name = gsd chem convective transport option
+  units = index
+  dimensions = ()
+  type = integer
+[chem_in_opt]
+  standard_name = gsd_chem_in_opt
+  long_name = gsd chem coldstart or restart option
+  units = index
+  dimensions = ()
+  type = integer
+[chem_opt]
+  standard_name = gsd_chem_option
+  long_name = gsd chem option
+  units = index
+  dimensions = ()
+  type = integer
+[chemdt]
+  standard_name = gsd_chem_dt
+  long_name = gsd chem dt
+  units = index
+  dimensions = ()
+  type = integer
+[cldchem_onoff]
+  standard_name = gsd_chem_cldchem_onoff
+  long_name = gsd chem cldchem onoff option not used
+  units = index
+  dimensions = ()
+  type = integer
+[dmsemis_opt]
+  standard_name = gsd_chem_dms_emis_opt
+  long_name = gsd chem dms emission option
+  units = index
+  dimensions = ()
+  type = integer
+[dust_opt]
+  standard_name = gsd_chem_dust_opt
+  long_name = gsd chem dust chem option
+  units = index
+  dimensions = ()
+  type = integer
+[dust_alpha]
+  standard_name = gsd_chem_dust_alpha
+  long_name = fengsha dust alpha
+  units = none
+  dimensions = ()
+  type = real
+  kind = kind_phys
+[dust_gamma]
+  standard_name = gsd_chem_dust_gamma
+  long_name = fengsha dust gamma
+  units = none
+  dimensions = ()
+  type = real
+  kind = kind_phys
+[dust_calcdrag]
+  standard_name = gsd_chem_dust_calcdrag
+  long_name = gsd chem dust calcdrag
+  units = index
+  dimensions = ()
+  type = integer
+[dust_uthres]
+  standard_name = gsd_chem_dust_uthres
+  long_name = fengsha dust velocity threshold
+  units = none
+  dimensions = (13)
+  type = real
+  kind = kind_phys
+[emiss_inpt_opt]
+  standard_name = gsd_chem_emiss_inpt_opt
+  long_name = gsd chem emiss inpt opt
+  units = index
+  dimensions = ()
+  type = integer
+[emiss_opt]
+  standard_name = gsd_chem_emiss_opt
+  long_name = gsd chem emiss option not used
+  units = index
+  dimensions = ()
+  type = integer
+[gas_bc_opt]
+  standard_name = gsd_chem_gas_bc_opt
+  long_name = gsd chem gas bc option not used
+  units = index
+  dimensions = ()
+  type = integer
+[gas_ic_opt]
+  standard_name = gsd_chem_gas_ic_opt
+  long_name = gsd chem gas ic option not used
+  units = index
+  dimensions = ()
+  type = integer
+[gaschem_onoff]
+  standard_name = gsd_chem_gaschem_onoff
+  long_name = gsd chem gsdchem onoff option not used
+  units = index
+  dimensions = ()
+  type = integer
+[kemit]
+  standard_name = k_emit_dry_dep
+  long_name = gsd chem k emit dimention for dry deoposition
+  units = index
+  dimensions = ()
+  type = integer
+[phot_opt]
+  standard_name = gsd_chem_phot_opt
+  long_name = gsd chem phot option not used
+  units = index
+  dimensions = ()
+  type = integer
+[photdt]
+  standard_name = gsd_chem_photdt
+  long_name = gsd chem photdt
+  units = index
+  dimensions = ()
+  type = integer
+[plumerisefire_frq]
+  standard_name = gsd_chem_plumerisefire_frq
+  long_name = gsd chem plumerise fire frequency
+  units = index
+  dimensions = ()
+  type = integer
+[plumerise_flag]
+  standard_name = gsd_chem_plumerise_flag
+  long_name = gsd chem plumerise flag
+  units = index
+  dimensions = ()
+  type = integer
+[seas_opt]
+  standard_name = gsd_chem_sea_salt_opt
+  long_name = gsd chem sea salt emission option
+  units = index
+  dimensions = ()
+  type = integer
+[seas_emis_scheme]
+  standard_name = gsd_chem_seas_emis_scheme
+  long_name = gsd chem seas emis scheme not used
+  units = index
+  dimensions = ()
+  type = integer
+[seas_emis_scale]
+  standard_name = gsd_chem_seas_emis_scale
+  long_name = gsd chem seas emis scale
+  units = none
+  dimensions = (5)
+  type = real
+  kind = kind_phys
+[vertmix_onoff]
+  standard_name = gsd_chem_vertmix_onoff
+  long_name = gsd chem vertmix onoff option not used
+  units = index
+  dimensions = ()
+  type = integer
+[gfdlmp_onoff]
+  standard_name = gsd_chem_gfdlmp_onoff
+  long_name = gsd chem gfdlmp onoff option not used
+  units = index
+  dimensions = ()
+  type = integer
+[archive_step]
+  standard_name = gsd_chem_archive_step
+  long_name = gsd chem archive step not used
+  units = index
+  dimensions = ()
+  type = integer
+[aer_ra_frq]
+  standard_name = gsd_chem_aer_ra_frq
+  long_name = gsd chem aer radiation frequency
+  units = index
+  dimensions = ()
+  type = integer
+[wetdep_ls_opt]
+  standard_name = gsd_chem_wetdep_ls_opt
+  long_name = gsd chem large scale wet deposition option
+  units = index
+  dimensions = ()
+  type = integer
 [ncnvcld3d]
   standard_name = number_of_convective_3d_cloud_fields
   long_name = number of convective 3d clouds fields
