@@ -4082,6 +4082,20 @@
   units = index
   dimensions = ()
   type = integer
+[restart_inname]
+  standard_name = gsd_chem_restart_input_name
+  long_name = gsd chem restart input directory name
+  units = none
+  dimensions = ()
+  type = character
+  kind = len=512
+[restart_outname]
+  standard_name = gsd_chem_restart_output_name
+  long_name = gsd chem restart output directory name
+  units = none
+  dimensions = ()
+  type = character
+  kind = len=512
 [ncnvcld3d]
   standard_name = number_of_convective_3d_cloud_fields
   long_name = number of convective 3d clouds fields

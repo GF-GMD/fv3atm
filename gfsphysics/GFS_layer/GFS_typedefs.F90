@@ -1123,6 +1123,8 @@ module GFS_typedefs
     integer :: archive_step
     integer :: aer_ra_frq
     integer :: wetdep_ls_opt 
+    character(len=512) :: restart_inname  ! chemistry restart input directory
+    character(len=512) :: restart_outname ! chemistry restart output directory
 #endif
 
 !--- debug flag
@@ -3265,6 +3267,8 @@ module GFS_typedefs
     integer :: archive_step = -1
     integer :: aer_ra_frq = 60
     integer :: wetdep_ls_opt  = 1
+    character(len=512) :: restart_inname =''
+    character(len=512) :: restart_outname =''
 #endif
 
 !--- aerosol scavenging factors
@@ -3378,7 +3382,8 @@ module GFS_typedefs
                                gas_bc_opt, gas_ic_opt, gaschem_onoff, kemit, phot_opt,      &
                                photdt, plumerisefire_frq, plumerise_flag, seas_opt,         &
                                seas_emis_scheme, seas_emis_scale, vertmix_onoff,            &
-                               gfdlmp_onoff, archive_step, aer_ra_frq, wetdep_ls_opt
+                               gfdlmp_onoff, archive_step, aer_ra_frq, wetdep_ls_opt,       &
+                               restart_inname, restart_outname
 #endif
 
 !--- other parameters 
@@ -4085,6 +4090,8 @@ module GFS_typedefs
     Model%archive_step      = archive_step
     Model%aer_ra_frq        = aer_ra_frq
     Model%wetdep_ls_opt     = wetdep_ls_opt
+    Model%restart_inname    = restart_inname
+    Model%restart_outname   = restart_outname
 #endif
 
 #ifdef CCPP
@@ -5086,6 +5093,8 @@ module GFS_typedefs
       print *, ' archive_step      : ', Model%archive_step
       print *, ' aer_ra_frq        : ', Model%aer_ra_frq      
       print *, ' wetdep_ls_opt     : ', Model%wetdep_ls_opt 
+      print *, ' restart_inname    : ', Model%restart_inname
+      print *, ' restart_outname   : ', Model%restart_outname
 #endif
       print *, ' '
       print *, 'derived totals for phy_f*d'

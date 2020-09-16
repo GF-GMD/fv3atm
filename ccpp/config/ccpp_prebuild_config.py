@@ -167,6 +167,7 @@ SCHEME_FILES_DEPENDENCIES = [
     'FV3/ccpp/physics/gsdchem/gocart_dmsemis_mod.F90',
     'FV3/ccpp/physics/gsdchem/gocart_chem_mod.F90',
     'FV3/ccpp/physics/gsdchem/gocart_aerosols_mod.F90',
+    'FV3/ccpp/physics/gsdchem/gocart_diag_mod.F90',
     'FV3/ccpp/physics/gsdchem/opt_mod.F90',
     'FV3/ccpp/physics/gsdchem/opt_gocart_mod.F90',
     'FV3/ccpp/physics/gsdchem/opt_driver_mod.F90',
